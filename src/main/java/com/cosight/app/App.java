@@ -32,11 +32,7 @@ public class App implements CommandLineRunner  {
 
 	private static Logger logger = LoggerFactory
 			.getLogger(com.cosight.app.App.class);
-	@Value("${app.home:}")
-	private String appHome;
 
-	@Value("${drive.bucket}")
-	private String bucketName;
 
 
 	@Autowired
@@ -57,8 +53,7 @@ public class App implements CommandLineRunner  {
 	@Override
 	public void run(String... args) throws Exception {
 
-		logger.info("========== STARTING EXECUTION APP HOME:{} DRIVE:{}====================================",appHome, bucketName);
-		String key = "";
+		logger.info("========== STARTING PLUGIN  ====================================");
 		Resource resource = resourceLoader.getResource("classpath:test.csv");
 
 		InputStream input = resource.getInputStream();
@@ -78,12 +73,9 @@ public class App implements CommandLineRunner  {
 		}
 		logger.info("{}",object.getKey());
 
-		drive.copyLocal(f,"/system/test-plugin/failed.csv");
-
-
-
-
-
+		logger.info("copy file to /system/test-plugin/failed.csv should fail when running inside cosight system");
+		boolean success = drive.copyLocal(f,"/system/test-plugin/failed.csv");
+		logger.info("copy success {}",success);
 
 		// download test
 
