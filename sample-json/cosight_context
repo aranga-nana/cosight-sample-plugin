@@ -1,5 +1,4 @@
 {
- "CONTEXT_PATH":"s3://quantum.store.test.cosight.com.au/cosight/system/plugin/runtime/36831d49-c086-472c-b824-1955812545a4",
  "parameters":{
     "s3path":"/analysis-excelfiles/",
     "output-folder":"results"
