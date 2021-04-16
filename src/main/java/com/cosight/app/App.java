@@ -57,29 +57,30 @@ public class App implements CommandLineRunner  {
 		Resource resource = resourceLoader.getResource("classpath:test.csv");
 
 		InputStream input = resource.getInputStream();
+		logger.info("copy file to local: /tmp/test.csv");
 		File f = new File("/tmp/test.csv"); // has 20G local temp storage
 		FileUtils.copyInputStreamToFile(input,f);
-		logger.info("parameter map {}", cosightExecutionContext.getParameters());
+		logger.info("File {}, copy to local success: {},size {} byte,time stamp {} ",f.getAbsolutePath(),f.exists(),f.length(),f.lastModified());
+		logger.info("plugin context runtime parameter map {}", cosightExecutionContext.getParameters());
+
 		String out =(String) cosightExecutionContext.getParameters().get("output-folder");
-		logger.info("Uploading to {}",out);
-
+		logger.info("Uploading to {}",out+"/upload-test.csv");
 		CosightDrive drive = driveManager.driveInstance();
-		drive.copyLocal(f,out+"/upload-test.csv");
-		logger.info("");
+				boolean success = drive.copyLocal(f,out+"/upload-test.csv");
+		logger.info(" upload {}",success);
 
+		logger.info("downloading uploaded file {}",out+"/upload-test.csv");
 		S3Object object = drive.asS3Object(out+"/upload-test.csv");
 		if (object != null) {
-			logger.info("download test succesfull");
+			logger.info("download successful s3://{}/{}",object.getBucketName(),object.getKey());
 		}
-		logger.info("{}",object.getKey());
+		;
 
-		logger.info("copy file to /system/test-plugin/failed.csv should fail when running inside cosight system");
-		boolean success = drive.copyLocal(f,"/system/test-plugin/failed.csv");
-		logger.info("copy success {}",success);
+		logger.info("Uploading file /system/test-plugin/test.csv ( THIS SHOULD FAIL)");
+		success = drive.copyLocal(f,"/system/test-plugin/test.csv");
+		logger.info("Upload success {}",success);
 
-		// download test
-
-
+		logger.info("==== END PLUGIN RUN ===");
 
 	}
 }
