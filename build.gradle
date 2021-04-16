@@ -6,7 +6,7 @@ plugins {
 
 
 group = 'com.cosight'
-version = '0.0.32-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
