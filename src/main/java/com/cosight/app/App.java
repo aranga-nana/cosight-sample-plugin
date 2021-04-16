@@ -57,7 +57,7 @@ public class App implements CommandLineRunner  {
 		Resource resource = resourceLoader.getResource("classpath:test.csv");
 
 		InputStream input = resource.getInputStream();
-		File f = new File("test.csv");
+		File f = new File("/tmp/test.csv"); // has 20G local temp storage
 		FileUtils.copyInputStreamToFile(input,f);
 		logger.info("parameter map {}", cosightExecutionContext.getParameters());
 		String out =(String) cosightExecutionContext.getParameters().get("output-folder");
