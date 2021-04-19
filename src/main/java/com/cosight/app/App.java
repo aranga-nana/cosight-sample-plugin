@@ -2,6 +2,7 @@ package com.cosight.app;
 
 
 
+import au.com.cosight.sdk.EcsTaskInfo;
 import au.com.cosight.sdk.plugin.core.ICosightExecutionContext;
 import au.com.cosight.sdk.plugin.core.drive.CosightDrive;
 import au.com.cosight.sdk.plugin.core.drive.CosightDriveManager;
@@ -44,6 +45,9 @@ public class App implements CommandLineRunner  {
 	@Autowired
 	private ResourceLoader resourceLoader;
 
+	@Autowired
+	private EcsTaskInfo ecsTaskInfo;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
@@ -54,7 +58,9 @@ public class App implements CommandLineRunner  {
 	public void run(String... args) throws Exception {
 
 		logger.info("========== STARTING PLUGIN  ====================================");
+		logger.info("{}",ecsTaskInfo);
 		Resource resource = resourceLoader.getResource("classpath:test.csv");
+
 
 		InputStream input = resource.getInputStream();
 		logger.info("copy file to local: /tmp/test.csv");
