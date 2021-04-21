@@ -79,6 +79,7 @@ public class App implements CommandLineRunner  {
 		S3Object object = drive.asS3Object(out+"/upload-test.csv");
 		if (object != null) {
 			logger.info("download successful s3://{}/{}",object.getBucketName(),object.getKey());
+			throw new IllegalStateException("GENERATED ERROR");
 		}
 		;
 
