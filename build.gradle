@@ -10,7 +10,14 @@ version = '1.0.2-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
+	// mavenCentral()
+	maven {
+		url 'https://cosight-dev-394277782245.d.codeartifact.ap-southeast-2.amazonaws.com/maven/cosight-public-repos-aws/'
+		credentials {
+			username "aws"
+			password System.env.CODEARTIFACT_AUTH_TOKEN
+		}
+	}
 }
 
 dependencies {
@@ -18,7 +25,7 @@ dependencies {
 
 
 	implementation 'org.springframework.boot:spring-boot-starter'
-	implementation files('../cosight-sdk/build/libs/cosight-sdk-1.0.12-SNAPSHOT.jar')
+	implementation 'au.com.cosight:cosight-sdk:1.0.12-SNAPSHOT'
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
 	implementation group: 'commons-io', name: 'commons-io', version: '2.6'
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
