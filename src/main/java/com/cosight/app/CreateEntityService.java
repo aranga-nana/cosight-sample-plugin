@@ -9,8 +9,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
 
@@ -30,7 +32,7 @@ public class CreateEntityService {
         try {
             EntityInstanceClient client = EntityInstanceClientBuilder.standard().build(new DefaultCredentialProvider());
             EntityInstance instance = new EntityInstance();
-            instance.set_vertexName(namespace+"__TestEntity1");
+            instance.set_vertexName("TestEntity1");
             instance.setFtxCreatedUser("system");
             InstanceValue value = new InstanceValue();
             value.setName("Name");

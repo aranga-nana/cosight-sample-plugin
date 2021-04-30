@@ -1,9 +1,5 @@
 package com.cosight.app;
 
-
-
-
-import au.com.cosight.sdk.EcsTaskInfo;
 import au.com.cosight.sdk.annotation.EnableCosightDrive;
 import au.com.cosight.sdk.annotation.EnableCosightRuntimeContext;
 import au.com.cosight.sdk.plugin.drive.CosightDrive;
@@ -50,8 +46,10 @@ public class App implements CommandLineRunner  {
 	@Autowired
 	private ResourceLoader resourceLoader;
 
+
+
 	@Autowired
-	private EcsTaskInfo ecsTaskInfo;
+	private CreateEntityService createEntityService;
 
 
 	public static void main(String[] args) {
@@ -61,9 +59,11 @@ public class App implements CommandLineRunner  {
 	// write ur code inside to what ever u
 	@Override
 	public void run(String... args) throws Exception {
-
-		logger.info("========== STARTING PLUGIN  ====================================");
-		logger.info("{}",ecsTaskInfo);
+		String endpoint = "";
+		if (args.length > 0) {
+			endpoint = "WITH ENDPOINT: "+args[0];
+		}
+		logger.info("========== STARTING PLUGIN  {} ====================================",endpoint);
 		Resource resource = resourceLoader.getResource("classpath:test.csv");
 
 
@@ -89,6 +89,13 @@ public class App implements CommandLineRunner  {
 		logger.info("Uploading file /system/test-plugin/test.csv ( THIS SHOULD FAIL)");
 		success = drive.copyLocal(f,"/system/test-plugin/test.csv");
 		logger.info("Upload success {}",success);
+		try {
+			createEntityService.create();;
+		}catch (Throwable e){
+			logger.error("{}",e.getMessage());
+			// e.printStackTrace();
+		}
+
 		logger.info("==== END PLUGIN RUN ===");
 
 	}
