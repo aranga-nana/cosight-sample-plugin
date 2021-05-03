@@ -6,7 +6,7 @@ plugins {
 
 
 group = 'com.cosight'
-version = '1.0.3-SNAPSHOT'
+version = '1.0.4-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -25,8 +25,8 @@ dependencies {
 
 
 	implementation 'org.springframework.boot:spring-boot-starter'
-	//implementation files('../cosight-sdk/build/libs/cosight-sdk-1.0.13-SNAPSHOT.jar')
-	implementation 'au.com.cosight:cosight-sdk:1.0.14-SNAPSHOT'
+	//implementation files('../cosight-sdk/build/libs/cosight-sdk-1.0.14-SNAPSHOT.jar')
+	implementation 'au.com.cosight:cosight-sdk:1.0.15-SNAPSHOT'
 	implementation 'org.springframework:spring-web:5.3.5'
 	implementation 'au.com.cosight:cosight-model:1.1-SNAPSHOT'
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
