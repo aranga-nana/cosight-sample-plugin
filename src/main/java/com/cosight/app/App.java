@@ -2,11 +2,14 @@ package com.cosight.app;
 
 import au.com.cosight.sdk.annotation.EnableCosightDrive;
 import au.com.cosight.sdk.annotation.EnableCosightRuntimeContext;
+import au.com.cosight.sdk.plugin.IPluginActionType;
 import au.com.cosight.sdk.plugin.drive.CosightDrive;
 import au.com.cosight.sdk.plugin.drive.CosightDriveManager;
+import au.com.cosight.sdk.plugin.runtime.CosightExecutionContextFactory;
 import au.com.cosight.sdk.plugin.runtime.ICosightExecutionContext;
 import com.amazonaws.services.s3.model.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +55,15 @@ public class App implements CommandLineRunner  {
 	private CreateEntityService createEntityService;
 
 
+	@Autowired
+	private ObjectMapper objectMapper;
+
+	@Autowired
+	private IPluginActionType actionType;
+
+	@Autowired
+	CosightExecutionContextFactory factory;
+
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
 	}
@@ -63,8 +75,9 @@ public class App implements CommandLineRunner  {
 		if (args.length > 0) {
 			endpoint = "WITH ENDPOINT: "+args[0];
 		}
-		logger.info("========== STARTING PLUGIN  {} ====================================",endpoint);
+		logger.info("========== STARTING PLUGIN  {} ====================================",actionType.name());
 		Resource resource = resourceLoader.getResource("classpath:test.csv");
+		logger.info("ICosightExecutionContext {}",objectMapper.writeValueAsString(cosightExecutionContext));
 
 
 		InputStream input = resource.getInputStream();

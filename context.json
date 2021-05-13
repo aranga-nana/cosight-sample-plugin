@@ -1,5 +1,42 @@
 {
   "parameters": {
-    "output-folder" : "/data/test"
-  }
+    "output-folder": "/sdk-test/results"
+  },
+  "action": {
+    "name": "holdings",
+    "mappingFields": [{
+      "name": "securityCode",
+      "type": "STRING"
+    }, {
+      "name": "securityDescritption",
+      "type": "STRING"
+    }, {
+      "name": "SEDOL",
+      "type": "STRING"
+    }, {
+      "name": "exchangeCode",
+      "type": "STRING"
+    }, {
+      "name": "currency",
+      "type": "STRING"
+    }, {
+      "name": "qty",
+      "type": "DOUBLE"
+    }, {
+      "name": "value",
+      "type": "DOUBLE"
+    }],
+    "parameters": [{
+      "name": "dateRun",
+      "prompt": "Date Run",
+      "prmptType": "simple",
+      "type": "DATE"
+    }, {
+      "name": "code",
+      "prompt": "Account Code",
+      "promptType": "simple",
+      "type": "STRING"
+    }]
+  },
+  "CONTEXT_PATH": "s3://quantum.store.test.cosight.com.au/cosight/system/plugin/runtime/8914023f-516b-4ab6-ae69-0a38a379e20c"
 }
